@@ -14,7 +14,6 @@ async function fetchDiscordWidget() {
         // Server-Name und Statistiken von der Live-API eintragen
         document.getElementById('discord-name').textContent = data.name;
         document.getElementById('discord-presence').textContent = data.presence_count || 0;
-        document.getElementById('discord-members').textContent = data.members ? data.members.length : (data.approximate_member_count || 0);
         
         // Join-Button verknüpfen
         if (data.instant_invite) {
