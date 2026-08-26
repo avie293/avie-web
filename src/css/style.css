@@ -1,0 +1,432 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0d0d0d;
+    /* Hier greift dein Haifisch-Hintergrundbild aus den Assets */
+    background-image: url('assets/banner.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Dunkler Blur-Filter über dem Hintergrund (wie im Screenshot) */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(18px);
+    z-index: -1;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Allgemeine Karten-Styles (Rounded Dark Transparent Boxes) */
+.card, .profile-card {
+    background: rgba(28, 28, 32, 0.75);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Profil-Karte */
+.banner {
+    height: 150px;
+    position: relative;
+    width: 100%;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.visibility-icon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    backdrop-filter: blur(5px);
+}
+
+.profile-content {
+    padding: 0 24px 22px 24px;
+    position: relative;
+}
+
+.avatar-container {
+    position: relative;
+    width: 86px;
+    height: 86px;
+    margin-top: -43px;
+    margin-bottom: 12px;
+}
+
+.avatar {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    border: 4px solid #1c1c20;
+    object-fit: cover;
+}
+
+.username-area h1 {
+    font-size: 21px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.badges {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.badge {
+    background: rgba(168, 85, 247, 0.12);
+    color: #d8b4fe;
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.bio {
+    font-size: 13.5px;
+    color: #b3b3b3;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.bio-line {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 8px 0;
+}
+
+.meta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 12.5px;
+    color: #9ca3af;
+}
+
+.meta-info i {
+    color: #a855f7;
+    margin-right: 6px;
+    width: 14px;
+}
+
+/* Discord Widget Card */
+.discord-card {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.discord-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 13.5px;
+    letter-spacing: 0.5px;
+    color: #fff;
+    padding: 0 2px;
+}
+
+.discord-header-title-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.discord-header-logo-svg {
+    color: #8ea1e1; /* Ein sanfter, zu Discord passender Blauton */
+    display: flex;
+    align-items: center;
+}
+
+.discord-header-indicator {
+    width: 8px;
+    height: 8px;
+    background-color: #a855f7;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #a855f7;
+}
+
+.discord-server-box {
+    background: rgba(18, 18, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.discord-server-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    overflow: hidden;
+}
+
+.discord-server-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.discord-server-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+}
+
+.discord-server-name {
+    font-weight: 600;
+    font-size: 14.5px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.discord-member-stats {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.stat-online, .stat-total {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dot-online {
+    width: 7px;
+    height: 7px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-total {
+    width: 7px;
+    height: 7px;
+    background-color: #6b7280;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.discord-join-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 7px 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+}
+
+.discord-join-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.youtube-embed-card {
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.youtube-embed-card iframe {
+    width: 560;
+    height: 315;
+    border-radius: 16px;
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body {
+    background-color: #0d0d0d;
+    /* Hier greift dein Banner-Bild als Hintergrund für die gesamte Seite */
+    background-image: url('assets/banner.png'); /* Passe den Pfad an, falls dein Bild woanders liegt */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Dieser Layer legt sich über das Hintergrundbild und macht es dunkel + unscharf (Blur) */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65); /* Abdunklung */
+    backdrop-filter: blur(18px);     /* Hier entsteht der Blur-Effekt */
+    -webkit-backdrop-filter: blur(18px); /* Für Safari */
+    z-index: -1;
+}
+
+/* Generelle Social Card Styles (teilen sich das Layout vom Discord Widget) */
+.social-card {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.social-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 13.5px;
+    letter-spacing: 0.5px;
+    color: #fff;
+    padding: 0 2px;
+}
+
+.social-header-title-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-server-box {
+    background: rgba(18, 18, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.social-server-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    overflow: hidden;
+}
+
+.social-server-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.social-server-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+}
+
+.social-server-name {
+    font-weight: 600;
+    font-size: 14.5px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.social-member-stats {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.social-action-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 7px 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+}
+
+.social-action-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Markenfarben & Akzente */
+/* YouTube */
+.yt-color { color: #ff4e45; }
+.yt-indicator { width: 8px; height: 8px; background-color: #ff4e45; border-radius: 50%; box-shadow: 0 0 10px #ff4e45; }
+
+/* TikTok */
+.tt-color { color: #fe2c55; }
+.tt-indicator { width: 8px; height: 8px; background-color: #fe2c55; border-radius: 50%; box-shadow: 0 0 10px #fe2c55; }
+
+/* Twitch */
+.tw-color { color: #9146ff; }
+.tw-indicator { width: 8px; height: 8px; background-color: #9146ff; border-radius: 50%; box-shadow: 0 0 10px #9146ff; }
+
+/* Farbige Punkte für die Social Stats */
+.yt-dot { background-color: #ff4e45 !important; }
+.tt-dot { background-color: #fe2c55 !important; }
+.tw-dot { background-color: #9146ff !important; }
