@@ -154,7 +154,7 @@ body::before {
 
 .youtube-embed-card iframe {
     width: 2560;
-    height: 1066;
+    height: 1280;
     border-radius: 16px;
     display: block;
     border: 1px solid rgba(255, 255, 255, 0.06);
