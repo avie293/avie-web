@@ -234,7 +234,7 @@ body::before {
     color: #9ca3af;
 }
 
-.stat-online, .stat-total {
+.stat-online {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -244,14 +244,6 @@ body::before {
     width: 7px;
     height: 7px;
     background-color: #22c55e;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.dot-total {
-    width: 7px;
-    height: 7px;
-    background-color: #6b7280;
     border-radius: 50%;
     display: inline-block;
 }
