@@ -7,7 +7,6 @@
 
 body {
     background-color: #0d0d0d;
-    /* Hier greift dein Haifisch-Hintergrundbild aus den Assets */
     background-image: url('assets/banner.jpg');
     background-size: cover;
     background-position: center;
@@ -20,7 +19,6 @@ body {
     padding: 20px;
 }
 
-/* Dunkler Blur-Filter über dem Hintergrund (wie im Screenshot) */
 body::before {
     content: '';
     position: fixed;
@@ -38,7 +36,6 @@ body::before {
     gap: 12px;
 }
 
-/* Allgemeine Karten-Styles (Rounded Dark Transparent Boxes) */
 .card, .profile-card {
     background: rgba(28, 28, 32, 0.75);
     border-radius: 16px;
@@ -47,7 +44,6 @@ body::before {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Profil-Karte */
 .banner {
     height: 150px;
     position: relative;
@@ -143,27 +139,9 @@ body::before {
     width: 14px;
 }
 
-.youtube-embed-card {
-    padding: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    overflow: hidden;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.youtube-embed-card iframe {
-    width: 1920;
-    height: 1080;
-    border-radius: 16px;
-    display: block;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
 body {
     background-color: #0d0d0d;
-    /* Hier greift dein Banner-Bild als Hintergrund für die gesamte Seite */
-    background-image: url('assets/banner.png'); /* Passe den Pfad an, falls dein Bild woanders liegt */
+    background-image: url('assets/banner.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -176,7 +154,6 @@ body {
     margin: 0;
 }
 
-/* Dieser Layer legt sich über das Hintergrundbild und macht es dunkel + unscharf (Blur) */
 body::before {
     content: '';
     position: fixed;
@@ -184,13 +161,12 @@ body::before {
     left: 0; 
     width: 100%; 
     height: 100%;
-    background: rgba(0, 0, 0, 0.65); /* Abdunklung */
-    backdrop-filter: blur(18px);     /* Hier entsteht der Blur-Effekt */
-    -webkit-backdrop-filter: blur(18px); /* Für Safari */
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     z-index: -1;
 }
 
-/* Generelle Social Card Styles (teilen sich das Layout vom Discord Widget) */
 .social-card {
     padding: 16px 20px;
     display: flex;
@@ -283,20 +259,15 @@ body::before {
     background: rgba(255, 255, 255, 0.15);
 }
 
-/* Markenfarben & Akzente */
-/* YouTube */
 .yt-color { color: #ff4e45; }
 .yt-indicator { width: 8px; height: 8px; background-color: #ff4e45; border-radius: 50%; box-shadow: 0 0 10px #ff4e45; }
 
-/* TikTok */
 .tt-color { color: #fe2c55; }
 .tt-indicator { width: 8px; height: 8px; background-color: #fe2c55; border-radius: 50%; box-shadow: 0 0 10px #fe2c55; }
 
-/* Twitch */
 .tw-color { color: #9146ff; }
 .tw-indicator { width: 8px; height: 8px; background-color: #9146ff; border-radius: 50%; box-shadow: 0 0 10px #9146ff; }
 
-/* Farbige Punkte für die Social Stats */
 .yt-dot { background-color: #ff4e45 !important; }
 .tt-dot { background-color: #fe2c55 !important; }
 .tw-dot { background-color: #9146ff !important; }
