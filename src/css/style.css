@@ -275,3 +275,27 @@ body::before {
 .tt-dot { background-color: #fe2c55 !important; }
 .tw-dot { background-color: #9146ff !important; }
 .dc-dot { background-color: #8ea1e1 !important; }
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #6366f1 #f1f5f9;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
