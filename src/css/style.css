@@ -268,6 +268,10 @@ body::before {
 .tw-color { color: #9146ff; }
 .tw-indicator { width: 8px; height: 8px; background-color: #9146ff; border-radius: 50%; box-shadow: 0 0 10px #9146ff; }
 
+.dc-color { color: #8ea1e1; }
+.dc-indicator { width: 8px; height: 8px; background-color: #8ea1e1; border-radius: 50%; box-shadow: 0 0 10px #8ea1e1; }
+
 .yt-dot { background-color: #ff4e45 !important; }
 .tt-dot { background-color: #fe2c55 !important; }
 .tw-dot { background-color: #9146ff !important; }
+.dc-dot { background-color: #8ea1e1 !important; }
