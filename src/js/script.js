@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- THEME SWITCHER LOGIK ---
     const toggleBtn = document.getElementById('themeToggleBtn');
     const dropdown = document.getElementById('themeDropdown');
     const themeButtons = dropdown.querySelectorAll('button');
@@ -59,35 +58,50 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // --- LIKE SYSTEM LOGIK (Stabil & Lokal) ---
     const likeBtn = document.getElementById('likeBtn');
     const likeCountSpan = document.getElementById('likeCount');
-    
-    // Startwert der Likes (wird im Browser gespeichert)
-    let currentLikes = parseInt(localStorage.getItem('profileLikes')) || 14; 
-    if (likeCountSpan) likeCountSpan.innerText = currentLikes;
+    const namespace = 'avie29-socials-page-2026';
+    const key = 'likes';
 
-    // Prüfen, ob der User auf diesem Gerät schon mal geliked hat
+    fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/`)
+        .then(response => {
+            if (!response.ok) throw new Error('API nicht erreichbar');
+            return response.json();
+        })
+        .then(data => {
+            if (likeCountSpan) likeCountSpan.innerText = data.count;
+        })
+        .catch(() => {
+            if (likeCountSpan) likeCountSpan.innerText = '14';
+        });
+
     const hasLiked = localStorage.getItem('hasLiked') === 'true';
     if (hasLiked && likeBtn) {
         likeBtn.classList.add('liked');
     }
 
-    // Klick-Event für das Herz (mit Umschalt-Funktion zum Entliken)
     if (likeBtn) {
         likeBtn.addEventListener('click', () => {
-            if (localStorage.getItem('hasLiked') === 'true') {
-                currentLikes = Math.max(0, currentLikes - 1);
-                localStorage.setItem('profileLikes', currentLikes);
-                localStorage.removeItem('hasLiked');
-                likeBtn.classList.remove('liked');
-            } else {
-                currentLikes += 1;
-                localStorage.setItem('profileLikes', currentLikes);
-                localStorage.setItem('hasLiked', 'true');
-                likeBtn.classList.add('liked');
-            }
-            if (likeCountSpan) likeCountSpan.innerText = currentLikes;
+            const alreadyLiked = localStorage.getItem('hasLiked') === 'true';
+            const action = alreadyLiked ? 'down' : 'up';
+            const endpoint = `https://api.counterapi.dev/v1/${namespace}/${key}/${action}`;
+
+            fetch(endpoint)
+                .then(response => response.json())
+                .then(data => {
+                    if (likeCountSpan) likeCountSpan.innerText = data.count;
+                    
+                    if (alreadyLiked) {
+                        localStorage.removeItem('hasLiked');
+                        likeBtn.classList.remove('liked');
+                    } else {
+                        localStorage.setItem('hasLiked', 'true');
+                        likeBtn.classList.add('liked');
+                    }
+                })
+                .catch(error => {
+                    console.error('Fehler beim Aktualisieren des Likes:', error);
+                });
         });
     }
 });
