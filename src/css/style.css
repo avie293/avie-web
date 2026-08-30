@@ -361,56 +361,52 @@ html[data-theme="light"] .theme-dropdown button span {
     opacity: 1 !important;
 }
 
-/* --- PERFEKT ZENTRIERTES & KORREKTES LIKE-SYSTEM CSS --- */
+/* Der Like-Container etwas kompakter */
 .like-container {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 14px;
+    background: transparent; /* Kein Kreis-Hintergrund mehr */
+    border: none;
+    padding: 0;
 }
 
-.like-btn {
-    background: rgba(254, 44, 85, 0.12);
-    border: 1px solid rgba(254, 44, 85, 0.25);
-    color: #fe2c55;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Der Like-Button (kein Kreis, dezente Größe) */
+#likeBtn {
+    background: none;
+    border: none;
     cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
-}
-
-/* Erzwingt absolute Mittigkeit des Herz-Symbols */
-.like-btn i {
+    padding: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+    transition: transform 0.2s ease;
 }
 
-.like-btn:hover {
-    background: rgba(254, 44, 85, 0.25);
+#likeBtn:hover {
     transform: scale(1.1);
 }
 
-.like-btn:active {
-    transform: scale(0.9);
+/* Das Herz-Icon (Standard: Nicht geliked -> grau, nicht ausgefüllt) */
+#likeBtn svg {
+    width: 20px;
+    height: 20px;
+    fill: none; /* Nicht ausgefüllt */
+    stroke: #888888; /* Grauer Rand */
+    stroke-width: 2;
+    transition: all 0.2s ease;
 }
 
-.like-btn.liked {
-    background: #fe2c55;
-    color: #fff;
-    box-shadow: 0 0 12px rgba(254, 44, 85, 0.5);
+/* Wenn geliked: Pink und komplett ausgefüllt */
+#likeBtn.liked svg {
+    fill: #ff3366; /* Pinker Füllton */
+    stroke: #ff3366;
 }
 
-.like-count {
-    font-size: 13.5px;
-    font-weight: 600;
-    color: var(--text-color);
+/* Die Zahl daneben */
+#likeCount {
+    font-size: 14px;
+    color: var(--text-color, #fff);
 }
 
 .yt-color { color: #ff4e45; }
