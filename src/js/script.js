@@ -4,18 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdown = document.getElementById('themeDropdown');
     const themeButtons = dropdown.querySelectorAll('button');
 
-    toggleBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdown.classList.toggle('show');
-    });
+    if (toggleBtn && dropdown) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('show');
+        });
 
-    document.addEventListener('click', () => {
-        dropdown.classList.remove('show');
-    });
+        document.addEventListener('click', () => {
+            dropdown.classList.remove('show');
+        });
 
-    dropdown.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
+        dropdown.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
 
     function applyTheme(theme) {
         if (theme === 'system') {
@@ -35,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        dropdown.classList.remove('show');
+        if (dropdown) dropdown.classList.remove('show');
     }
 
     const savedTheme = localStorage.getItem('theme');
@@ -52,12 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        if (!localStorage.getItem('theme')) {
-            applyTheme('system');
-        }
-    });
-
 
     // --- GLOBAL SUPABASE LIKE & UNLIKE SYSTEM ---
     const likeBtn = document.getElementById('likeBtn');
@@ -66,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const SUPABASE_URL = 'https://hqlotttvwufmtdfmhgzc.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxbG90dHR2d3VmbXRkZm1oZ3pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgxMjEyMjQsImV4cCI6MjEwMzY5NzIyNH0.8SZxHF7kgsLYD2Zj92oN4GVXc5n-L-kFH6Way1uvYEE';
 
-    // 1. Likes direkt beim Laden aus der Supabase-Tabelle abrufen
+    // 1. Likes aus Supabase laden
     async function fetchLikes() {
         try {
             const response = await fetch(`${SUPABASE_URL}/rest/v1/likes?id=eq.profile&select=count`, {
@@ -95,16 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
         likeBtn.classList.add('liked');
     }
 
-    // 2. Klick-Event: Global hoch- oder runterzählen in Supabase
+    // 2. Klick-Event für Liken / Unliken
     if (likeBtn) {
         likeBtn.addEventListener('click', async () => {
             const alreadyLiked = localStorage.getItem('hasLiked') === 'true';
             
-            // Aktuellen Wert holen, um ihn zu verändern
             let currentCount = await fetchLikes();
             let newCount = alreadyLiked ? Math.max(0, currentCount - 1) : currentCount + 1;
 
-            // In Supabase aktualisieren (PATCH Request)
             try {
                 const response = await fetch(`${SUPABASE_URL}/rest/v1/likes?id=eq.profile`, {
                     method: 'PATCH',
@@ -122,10 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (alreadyLiked) {
                         localStorage.removeItem('hasLiked');
-                        likeBtn.classList.remove('liked');
+                        likeBtn.classList.remove('liked'); // Wechselt zu grau / nicht ausgefüllt
                     } else {
                         localStorage.setItem('hasLiked', 'true');
-                        likeBtn.classList.add('liked');
+                        likeBtn.classList.add('liked'); // Wechselt zu pink / ausgefüllt
                     }
                 }
             }
