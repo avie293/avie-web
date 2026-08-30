@@ -59,47 +59,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // --- LIKE SYSTEM LOGIK ---
+    // --- LIKE SYSTEM LOGIK (Stabil & Lokal) ---
     const likeBtn = document.getElementById('likeBtn');
     const likeCountSpan = document.getElementById('likeCount');
     
-    // Einzigartiger Name für deinen Zähler in der Cloud
-    const namespace = 'avie29-social-likes'; 
-    const key = 'likes';
-
-    // 1. Like-Stand beim Laden abrufen
-    fetch(`https://api.countapi.xyz/get/${namespace}/${key}`)
-        .then(response => response.json())
-        .then(data => {
-            if (likeCountSpan) likeCountSpan.innerText = data.value;
-        })
-        .catch(() => {
-            if (likeCountSpan) likeCountSpan.innerText = '0';
-        });
+    // Startwert der Likes (wird im Browser gespeichert)
+    let currentLikes = parseInt(localStorage.getItem('profileLikes')) || 14; 
+    if (likeCountSpan) likeCountSpan.innerText = currentLikes;
 
     // Prüfen, ob der User auf diesem Gerät schon mal geliked hat
-    if (localStorage.getItem('hasLiked') === 'true' && likeBtn) {
+    const hasLiked = localStorage.getItem('hasLiked') === 'true';
+    if (hasLiked && likeBtn) {
         likeBtn.classList.add('liked');
     }
 
-    // 2. Klick-Event für das Herz
+    // Klick-Event für das Herz (mit Umschalt-Funktion zum Entliken)
     if (likeBtn) {
         likeBtn.addEventListener('click', () => {
             if (localStorage.getItem('hasLiked') === 'true') {
-                return; // Verhindert Spam vom selben Browser
+                currentLikes = Math.max(0, currentLikes - 1);
+                localStorage.setItem('profileLikes', currentLikes);
+                localStorage.removeItem('hasLiked');
+                likeBtn.classList.remove('liked');
+            } else {
+                currentLikes += 1;
+                localStorage.setItem('profileLikes', currentLikes);
+                localStorage.setItem('hasLiked', 'true');
+                likeBtn.classList.add('liked');
             }
-
-            // Zähler in der Cloud um 1 erhöhen
-            fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (likeCountSpan) likeCountSpan.innerText = data.value;
-                    likeBtn.classList.add('liked');
-                    localStorage.setItem('hasLiked', 'true');
-                })
-                .catch(error => {
-                    console.error('Fehler beim Speichern des Likes', error);
-                });
+            if (likeCountSpan) likeCountSpan.innerText = currentLikes;
         });
     }
 });
