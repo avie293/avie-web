@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- THEME SWITCHER LOGIK ---
     const toggleBtn = document.getElementById('themeToggleBtn');
     const dropdown = document.getElementById('themeDropdown');
     const themeButtons = dropdown.querySelectorAll('button');
@@ -55,17 +54,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // --- GLOBAL SUPABASE LIKE & UNLIKE SYSTEM ---
     const likeBtn = document.getElementById('likeBtn');
     const likeCountSpan = document.getElementById('likeCount');
-    
+    const timeAgoSpan = document.getElementById('timeAgo');    
     const SUPABASE_URL = 'https://hqlotttvwufmtdfmhgzc.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxbG90dHR2d3VmbXRkZm1oZ3pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgxMjEyMjQsImV4cCI6MjEwMzY5NzIyNH0.8SZxHF7kgsLYD2Zj92oN4GVXc5n-L-kFH6Way1uvYEE';
 
-    // 1. Likes aus Supabase laden
-    async function fetchLikes() {
+    function formatTimeAgo(dateString) {
+        if (!dateString) return 'Long time ago';
+        const creationDate = new Date(dateString);
+        const now = new Date();
+        const diffTime = now - creationDate;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const diffMonths = Math.floor(diffDays / 30);
+        const diffYears = Math.floor(diffDays / 365);
+
+        if (diffDays === 0) return 'Today';
+        if (diffDays === 1) return 'Yesterday';
+        if (diffDays < 30) return `${diffDays} days ago`;
+        if (diffMonths < 12) return diffMonths === 1 ? '1 month ago' : `${diffMonths} months ago`;
+        return diffYears === 1 ? '1 year ago' : `${diffYears} years ago`;
+    }
+
+    async function fetchProfileData() {
         try {
-            const response = await fetch(`${SUPABASE_URL}/rest/v1/likes?id=eq.profile&select=count`, {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/likes?id=eq.profile&select=count,created_at`, {
                 headers: {
                     'apikey': SUPABASE_ANON_KEY,
                     'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
@@ -74,29 +87,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             if (data && data.length > 0) {
                 const count = data[0].count;
+                const createdAt = data[0].created_at;
+
                 if (likeCountSpan) likeCountSpan.innerText = count;
+
+                if (timeAgoSpan && createdAt) {
+                    timeAgoSpan.innerText = formatTimeAgo(createdAt);
+                }
+
                 return count;
             }
         } catch (error) {
-            console.error('Fehler beim Laden der Likes:', error);
+            console.error('ERROR while loading profile data:', error);
         }
         return 0;
     }
 
-    fetchLikes();
+    fetchProfileData();
 
-    // Lokalen Status prüfen (ob dieser Browser schon geliked hat)
     const hasLiked = localStorage.getItem('hasLiked') === 'true';
     if (hasLiked && likeBtn) {
         likeBtn.classList.add('liked');
     }
 
-    // 2. Klick-Event für Liken / Unliken
     if (likeBtn) {
         likeBtn.addEventListener('click', async () => {
             const alreadyLiked = localStorage.getItem('hasLiked') === 'true';
+            const responseCheck = await fetch(`${SUPABASE_URL}/rest/v1/likes?id=eq.profile&select=count`, {
+                headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+            });
+            const checkData = await responseCheck.json();
+            let currentCount = checkData[0] ? checkData[0].count : 0;
             
-            let currentCount = await fetchLikes();
             let newCount = alreadyLiked ? Math.max(0, currentCount - 1) : currentCount + 1;
 
             try {
@@ -116,15 +138,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (alreadyLiked) {
                         localStorage.removeItem('hasLiked');
-                        likeBtn.classList.remove('liked'); // Wechselt zu grau / nicht ausgefüllt
+                        likeBtn.classList.remove('liked');
                     } else {
                         localStorage.setItem('hasLiked', 'true');
-                        likeBtn.classList.add('liked'); // Wechselt zu pink / ausgefüllt
+                        likeBtn.classList.add('liked');
                     }
                 }
             }
             catch (error) {
-                console.error('Fehler beim Speichern des Likes:', error);
+                console.error('ERROR while lining:', error);
             }
         });
     }
