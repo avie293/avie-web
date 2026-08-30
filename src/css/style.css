@@ -361,22 +361,27 @@ html[data-theme="light"] .theme-dropdown button span {
     opacity: 1 !important;
 }
 
-/* Der Like-Container etwas kompakter */
-.like-container {
-    display: inline-flex;
+/* --- LIKE & UNLIKE SYSTEM (Oben rechts im Banner) --- */
+.banner .like-container {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
     align-items: center;
-    gap: 8px;
-    background: transparent; /* Kein Kreis-Hintergrund mehr */
-    border: none;
-    padding: 0;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 6px 10px;
+    border-radius: 20px;
+    z-index: 10;
 }
 
-/* Der Like-Button (kein Kreis, dezente Größe) */
 #likeBtn {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -384,29 +389,30 @@ html[data-theme="light"] .theme-dropdown button span {
 }
 
 #likeBtn:hover {
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
-/* Das Herz-Icon (Standard: Nicht geliked -> grau, nicht ausgefüllt) */
+/* Herz-Icon: Standard (nicht geliked -> grau, nicht ausgefüllt) */
 #likeBtn svg {
-    width: 20px;
-    height: 20px;
-    fill: none; /* Nicht ausgefüllt */
-    stroke: #888888; /* Grauer Rand */
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: #cccccc;
     stroke-width: 2;
     transition: all 0.2s ease;
 }
 
-/* Wenn geliked: Pink und komplett ausgefüllt */
+/* Wenn geliked: Pink und ausgefüllt */
 #likeBtn.liked svg {
-    fill: #ff3366; /* Pinker Füllton */
+    fill: #ff3366;
     stroke: #ff3366;
 }
 
-/* Die Zahl daneben */
-#likeCount {
-    font-size: 14px;
-    color: var(--text-color, #fff);
+/* Die Zahl im Banner-Like-Badge */
+.banner #likeCount {
+    font-size: 13px;
+    font-weight: 500;
+    color: #ffffff;
 }
 
 .yt-color { color: #ff4e45; }
@@ -435,8 +441,4 @@ html {
 ::-webkit-scrollbar-thumb {
   background: #363636;
   border-radius: 4px;
-}
-.theme-dropdown button span {
-    color: var(--text-color) !important;
-    opacity: 1 !important;
 }
