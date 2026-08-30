@@ -359,6 +359,48 @@ html[data-theme="light"] .theme-dropdown button span {
     opacity: 1 !important;
 }
 
+.like-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.like-btn {
+    background: rgba(254, 44, 85, 0.12);
+    border: 1px solid rgba(254, 44, 85, 0.25);
+    color: #fe2c55;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.like-btn:hover {
+    background: rgba(254, 44, 85, 0.25);
+    transform: scale(1.1);
+}
+
+.like-btn:active {
+    transform: scale(0.9);
+}
+
+.like-btn.liked {
+    background: #fe2c55;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(254, 44, 85, 0.5);
+}
+
+.like-count {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
 .yt-color { color: #ff4e45; }
 .yt-indicator { width: 8px; height: 8px; background-color: #ff4e45; border-radius: 50%; box-shadow: 0 0 10px #ff4e45; }
 .tt-color { color: #fe2c55; }
