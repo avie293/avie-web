@@ -105,6 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchProfileData();
 
+    setInterval(() => {
+        fetchProfileData();
+    }, 10000);
+
     const hasLiked = localStorage.getItem('hasLiked') === 'true';
     if (hasLiked && likeBtn) {
         likeBtn.classList.add('liked');
