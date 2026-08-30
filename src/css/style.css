@@ -361,20 +361,21 @@ html[data-theme="light"] .theme-dropdown button span {
     opacity: 1 !important;
 }
 
-/* --- LIKE & UNLIKE SYSTEM (Oben rechts im Banner) --- */
 .banner .like-container {
     position: absolute;
     top: 12px;
     right: 12px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    gap: 8px;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    padding: 6px 10px;
+    padding: 6px 12px;
     border-radius: 20px;
     z-index: 10;
+    min-width: 50px;
 }
 
 #likeBtn {
@@ -392,7 +393,6 @@ html[data-theme="light"] .theme-dropdown button span {
     transform: scale(1.15);
 }
 
-/* Herz-Icon: Standard (nicht geliked -> grau, nicht ausgefüllt) */
 #likeBtn svg {
     width: 18px;
     height: 18px;
@@ -402,17 +402,18 @@ html[data-theme="light"] .theme-dropdown button span {
     transition: all 0.2s ease;
 }
 
-/* Wenn geliked: Pink und ausgefüllt */
 #likeBtn.liked svg {
     fill: #ff3366;
     stroke: #ff3366;
 }
 
-/* Die Zahl im Banner-Like-Badge */
 .banner #likeCount {
     font-size: 13px;
     font-weight: 500;
     color: #ffffff;
+    line-height: 1;
+    min-width: 12px;
+    text-align: left;
 }
 
 .yt-color { color: #ff4e45; }
