@@ -431,6 +431,8 @@ html[data-theme="light"] .theme-dropdown button span {
 .tw-indicator { width: 8px; height: 8px; background-color: #9146ff; border-radius: 50%; box-shadow: 0 0 10px #9146ff; }
 .dc-color { color: #8ea1e1; }
 .dc-indicator { width: 8px; height: 8px; background-color: #8ea1e1; border-radius: 50%; box-shadow: 0 0 10px #8ea1e1; }
+.bs-color { color: #0085ff;}
+.bs-indicator { width: 8px; height: 8px; background-color: #0085ff; border-radius: 50%; box-shadow: 0 0 10px #0085ff; }
 
 html {
   scrollbar-width: thick;
